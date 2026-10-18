@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; script-src-elem 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; media-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="מחשבון היערכות לקבלת סחורה. עובד בלי אינטרנט, והנתונים נשמרים רק במכשיר.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="קבלת סחורה">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<title>מחשבון קבלת סחורה</title>
+<link rel="stylesheet" href="app.css">
+</head><body>
+<header>
+<div class="brand">קבלת סחורה</div><div class="sub">מחשבון היערכות למשלוח</div>
+<button type="button" class="burger" id="burger" aria-label="תפריט"><i></i><i></i><i></i></button>
+<div class="bar">תאריך<input type="date" id="date"><button type="button" class="lnk" id="bSave">שמירה</button></div>
+<div class="tabs"><button type="button" class="on" data-p="0">ביגוד</button><button type="button" data-p="1">נעליים</button><div class="ind" id="ind"></div></div>
+</header>
+<div id="pager"><section class="page" id="pc"></section><section class="page" id="ps"></section></div>
+<div id="veil"></div>
+<aside id="drawer">
+<div class="dtop"><button type="button" class="x" id="xclose" aria-label="סגירה"><span></span><span></span></button></div>
+<nav class="nav"><button type="button" data-nav="0">ביגוד</button><button type="button" data-nav="1">נעליים</button><button type="button" data-go="hist">היסטוריה</button></nav>
+<div class="stt">הגדרות</div>
+<details><summary>כללי</summary><div class="acc">
+<div class="row">אחוז חנות<input type="number" data-s="storePct"></div>
+<div class="row">אחוז מחסן<input type="number" id="wh" disabled></div>
+<div class="row">קרטונים לדולי<input type="number" data-s="dollyCap"></div>
+<p class="note">אחוז מחסן = 100 פחות אחוז חנות.</p></div></details>
+<div id="dacc"></div>
+<details><summary>נעליים</summary><div class="acc">
+<div class="seg" id="mode"><button type="button" data-m="cartons">קרטונים</button><button type="button" data-m="items">כמות פריטים</button></div>
+<div id="ss"></div>
+<p class="note">ברירת מחדל 5 קרטונים ללול — מיקום של 2 קופסאות ומיקום של 3.</p></div></details>
+<details id="lkDet"><summary>נעילת אפליקציה</summary><div class="acc" id="lkBox"></div></details>
+<p class="priv"><b>פרטיות:</b> כל מה שמזינים נשמר רק במכשיר הזה, באחסון המקומי של הדפדפן. שום דבר לא נשלח לשום מקום: אין חשבון, אין שרת ואין מעקב.</p>
+<button type="button" class="lnk gagain" id="gAgain">הצג הדרכה שוב</button>
+<button type="button" class="lnk rst" id="reset">איפוס לברירת מחדל</button>
+</aside>
+<section class="scr" id="hist">
+<h2>היסטוריה <button type="button" class="x" data-close="hist" aria-label="סגירה">×</button></h2>
+<div id="hl"></div>
+</section>
+<div id="guide" role="dialog" aria-modal="true" aria-labelledby="gHead">
+<div class="gp" id="gPanel" tabindex="-1">
+<div class="gtop"><span id="gHead">מדריך קצר · <span id="gNum">1</span>/<span id="gTot">7</span></span><button type="button" class="lnk" id="gSkip">דלג</button></div>
+<div class="gvp" id="gVp" aria-live="polite"><div class="gtr" id="gTr">
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="1"/><rect x="8" y="5.5" width="8" height="4"/><circle cx="9" cy="13" r=".6"/><circle cx="12" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/><circle cx="9" cy="16.5" r=".6"/><circle cx="12" cy="16.5" r=".6"/><circle cx="15" cy="16.5" r=".6"/></svg>
+<h2>ברוכים הבאים</h2>
+<p>זה מחשבון לקבלת סחורה. מזינים את כמויות המשלוח, והוא מחשב כמה <b>דולי, בארות ליקוט, לולים, באפר וכוח אדם</b> צריך.</p>
+<p class="gn">יש שני מסכים: <b>ביגוד</b> ו<b>נעליים</b>. עוברים ביניהם בלשוניות למעלה או בהחלקה. הכלי עובד גם בלי אינטרנט.</p></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><path d="M3 7.5l9-4 9 4v9l-9 4-9-4z"/><path d="M3 7.5l9 4 9-4M12 11.5v9"/></svg>
+<h2>מזינים כמויות</h2>
+<p>לכל מחלקה (נשים, גברים, ילדים) ממלאים שלושה שדות:</p>
+<ul><li><b>קרטונים</b></li><li><b>פריטי תלייה</b></li><li><b>פריטי קיפול</b></li></ul>
+<p class="gn">התוצאות מתעדכנות מיד תוך כדי הקלדה. בראש המסך אפשר לבחור תאריך, ו״ניקוי נתונים״ בתחתית מרוקן את השדות.</p></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 12V3a9 9 0 0 1 8.56 11.78z" fill="#000"/></svg>
+<h2>קוראים את התוצאות</h2>
+<ul><li><b>דולי</b> — לפי מספר הקרטונים.</li><li><b>בארות ליקוט</b> (תלייה) ו<b>לול ליקוט</b> (קיפול) — מה שיוצא לחנות.</li><li><b>באפר תלייה / קיפול</b> — מה שנשאר במחסן.</li><li><b>כוח אדם</b> — לפי פריטים לאדם, עם חלוקה לתלייה ולקיפול.</li></ul>
+<p class="gn">ברירת המחדל: <b>30% חנות / 70% באפר</b>. תמיד מעגלים למעלה — גם חלק קטן של באר נספר כבאר שלמה. ״סה״כ״ בתחתית מחבר את כל המחלקות.</p></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><path d="M3 16.5V7h4l2.5 3.5 5 1.6c3 .9 6.5 1.6 6.5 4.4z"/><path d="M3 16.5v2h18v-2"/></svg>
+<h2>נעליים</h2>
+<p>בלשונית ״נעליים״ מקבלים <b>לול ליקוט</b> ו<b>לול באפר</b> לכל מחלקה. יש שני מצבים (בוחרים בתפריט › הגדרות › נעליים):</p>
+<ul><li><b>קרטונים</b> — מזינים מספר קרטונים (ברירת מחדל: 5 קרטונים ללול).</li><li><b>כמות פריטים</b> — מזינים מספר פריטים, ולכל מחלקה מופיע גם שדה <b>״פריטים ללול״</b>.</li></ul></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><path d="M3 6.5h18M3 12h18M3 17.5h18"/><circle cx="9" cy="6.5" r="2" fill="#fff"/><circle cx="16" cy="12" r="2" fill="#fff"/><circle cx="7" cy="17.5" r="2" fill="#fff"/></svg>
+<h2>הגדרות</h2>
+<p>פותחים את התפריט (שלושת הקווים למעלה). שם אפשר לשנות:</p>
+<ul><li><b>אחוז חנות</b> (אחוז המחסן מתעדכן לבד) ו<b>קרטונים לדולי</b>.</li><li>לכל מחלקה: אחוז חנות משלה, פריטים ללול, פריטים לבר ופריטים לאדם.</li></ul>
+<p class="gn">״איפוס לברירת מחדל״ מחזיר את כל ההגדרות למצב ההתחלתי.</p></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><path d="M17 13.5v7M13.5 17h7"/></svg>
+<h2>מסך הבית ונעילה</h2>
+<p><b>הוספה למסך הבית (אייפון):</b> פותחים את הכלי בספארי, לוחצים על כפתור השיתוף של ספארי ובוחרים <b>״הוספה למסך הבית״</b>. אחרי הפתיחה הראשונה הכלי עובד גם בלי אינטרנט.</p>
+<p class="gn"><b>נעילה (לא חובה):</b> בתפריט › הגדרות › <b>נעילת אפליקציה</b> אפשר להגדיר קוד של 4–6 ספרות, ובמכשירים תומכים גם Face ID. הנעילה כבויה כברירת מחדל.</p></section>
+<section class="gc"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2"/><rect x="9.5" y="11" width="5" height="4"/><path d="M10.5 11V9.5a1.5 1.5 0 0 1 3 0V11"/></svg>
+<h2>שמירה ופרטיות</h2>
+<p><b>שמירה</b> מוסיפה את המשלוח ל<b>היסטוריה</b> (בתפריט) — שם אפשר לצפות, לטעון או למחוק.</p>
+<p class="gn">הכול נשמר <b>רק בטלפון הזה</b>. שום דבר לא נשלח: אין חשבון, אין שרת ואין מעקב. האינטרנט משמש רק לטעינת הכלי עצמו ולעדכונים שלו.<br>בבקשה לא לשתף צילומי מסך של מספרי משלוח אמיתיים מחוץ לכלי העבודה.</p></section>
+</div></div>
+<div class="gdots" id="gDots"></div>
+<div class="gnav"><button type="button" class="btn ghost" id="gPrev">הקודם</button><button type="button" class="btn" id="gNext">הבא</button></div>
+</div></div>
+<div id="lock" role="dialog" aria-modal="true" aria-labelledby="lockH" aria-describedby="lockD" hidden>
+<div class="lkp">
+<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.2" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="1"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.2"/></svg>
+<h1 id="lockH">המחשבון נעול</h1>
+<p id="lockD" class="note">כדי להמשיך מזינים את הקוד (4–6 ספרות).</p>
+<label class="lf" for="lockPin">קוד</label>
+<input class="pin" id="lockPin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" aria-describedby="lockMsg">
+<p id="lockMsg" class="lkmsg" role="alert"></p>
+<button type="button" class="btn" id="lockGo">פתיחה</button>
+<button type="button" class="btn ghost" id="lockBio" hidden>פתיחה עם Face ID</button>
+<button type="button" class="lnk" id="lockForgotBtn" aria-expanded="false" aria-controls="lockForgot">שכחתי את הקוד</button>
+<div id="lockForgot" hidden>
+<p class="note">אי אפשר לשחזר קוד שנשכח. האפשרות היחידה היא למחוק את כל הנתונים של המחשבון במכשיר הזה: הכמויות, ההיסטוריה, ההגדרות והנעילה. אחרי המחיקה מתחילים מחדש, בלי נעילה.</p>
+<button type="button" class="btn ghost danger" id="lockErase">מחיקת כל הנתונים</button>
+</div>
+</div></div>
+<script src="app.js"></script>
+</body></html>
