@@ -1,7 +1,7 @@
 'use strict';
 /* Offline cache for this app only. Same-origin GET requests inside this app's scope; nothing else is touched.
    Network first (so updates arrive), cached copy as the offline fallback. */
-var V='kabala-v1',PFX='kabala-';
+var V='kabala-v2',PFX='kabala-';
 var ASSETS=['./','index.html','app.css','app.js','manifest.webmanifest','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png'];
 var SCOPE=new URL(self.registration.scope);
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(ASSETS.map(function(u){return new Request(u,{cache:'reload'})}))}).then(function(){return self.skipWaiting()}))});
